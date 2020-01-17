@@ -46,12 +46,12 @@ std::map<std::string, char*> border_parts = {
 
 CardBuilder::CardBuilder(){}
 
-Card CardBuilder::buildEquipCard(std::string centerName, std::string borderName){
+Card CardBuilder::buildEquipCard(std::string centerName, std::string borderName, std::string suitName, std::string typeName){
 
     // Building Center Part
     SDL_Surface* loadedSurface = IMG_Load((cardsDirectory + equipment_parts.at(centerName)).c_str());
 
-    Uint32 colorkey = SDL_MapRGB(loadedSurface->format, 0, 0, 0);
+    Uint32 colorkey = SDL_MapRGB(loadedSurface->format, 0, 255, 0);
     SDL_SetColorKey(loadedSurface, SDL_TRUE, colorkey);
 
     SDL_Texture* centerTexture = SDL_CreateTextureFromSurface(screen, loadedSurface);
@@ -60,12 +60,28 @@ Card CardBuilder::buildEquipCard(std::string centerName, std::string borderName)
     // Building Border Part
     loadedSurface = IMG_Load((cardsDirectory + border_parts.at(borderName)).c_str());
 
-    colorkey = SDL_MapRGB(loadedSurface->format, 0, 0, 0);
+    colorkey = SDL_MapRGB(loadedSurface->format, 0,255, 0);
     SDL_SetColorKey(loadedSurface, SDL_TRUE, colorkey);
 
     SDL_Texture* borderTexture = SDL_CreateTextureFromSurface(screen, loadedSurface);
 
-    Card buildedCard(centerTexture, borderTexture); 
+    // Building Suit Part
+    loadedSurface = IMG_Load((cardsDirectory + suit_parts.at(suitName)).c_str());
+
+    colorkey = SDL_MapRGB(loadedSurface->format, 0, 255, 0);
+    SDL_SetColorKey(loadedSurface, SDL_TRUE, colorkey);
+
+    SDL_Texture* suitTexture = SDL_CreateTextureFromSurface(screen, loadedSurface);
+
+    // Building Type Part
+    loadedSurface = IMG_Load((cardsDirectory + type_parts.at(typeName)).c_str());
+
+    colorkey = SDL_MapRGB(loadedSurface->format, 0, 255, 0);
+    SDL_SetColorKey(loadedSurface, SDL_TRUE, colorkey);
+
+    SDL_Texture* typeTexture = SDL_CreateTextureFromSurface(screen, loadedSurface);
+
+    Card buildedCard(centerTexture, borderTexture, suitTexture, typeTexture); 
 
     SDL_FreeSurface(loadedSurface);
     return buildedCard;

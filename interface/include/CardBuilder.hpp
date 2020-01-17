@@ -13,7 +13,7 @@ extern SDL_Renderer *screen;
 class CardBuilder{
 public:
     CardBuilder();
-    Card buildEquipCard(std::string centerName, std::string borderName);
+    Card buildEquipCard(std::string centerName, std::string borderName, std::string suitName, std::string typeName);
 
 };
 

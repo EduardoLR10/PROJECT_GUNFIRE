@@ -8,12 +8,15 @@ class Card{
 private:
     SDL_Texture* center;
     SDL_Texture* border;
+    SDL_Texture* suit;
+    SDL_Texture* type;
 
 public:   
-    Card(SDL_Texture* center, SDL_Texture* border);
-    //setCenter(std::fstream* image);
+    Card(SDL_Texture* center, SDL_Texture* border, SDL_Texture* suit, SDL_Texture* type);
     SDL_Texture* getCenter();
     SDL_Texture* getBorder();
+    SDL_Texture* getSuit();
+    SDL_Texture* getType();
 
 };
 

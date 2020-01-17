@@ -11,13 +11,13 @@ int main(){
     SDL_Window *window = SDL_CreateWindow("Project Gunfire",
                           SDL_WINDOWPOS_UNDEFINED,
                           SDL_WINDOWPOS_UNDEFINED,
-                          640, 480,
+                          250, 389,
                           0);
 
     screen = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     CardBuilder cardBuilder;
-    Card testCard = cardBuilder.buildEquipCard("EquipBarile", "BorderMoss");
+    Card testCard = cardBuilder.buildEquipCard("EquipBarile", "BorderMoss", "SuitSpades", "TypeK");
 
     showCard(testCard);
 

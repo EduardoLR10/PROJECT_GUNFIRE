@@ -1,6 +1,6 @@
 IDIR =../include
 CC=g++ -std=c++17
-CFLAGS=-I$(IDIR) -Wpedantic -Wall -g -lSDL2 -lSDL2_image
+CFLAGS=-I$(IDIR) -Wpedantic -g -lSDL2 -lSDL2_image
 
 ODIR=obj
 

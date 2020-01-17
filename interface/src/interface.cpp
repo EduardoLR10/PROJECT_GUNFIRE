@@ -7,5 +7,7 @@ void showCard(Card cardToShow){
     SDL_RenderClear(screen);
     SDL_RenderCopy(screen, cardToShow.getCenter(), NULL, NULL);
     SDL_RenderCopy(screen, cardToShow.getBorder(), NULL, NULL);
+    SDL_RenderCopy(screen, cardToShow.getSuit(), NULL, NULL);
+    SDL_RenderCopy(screen, cardToShow.getType(), NULL, NULL);
     SDL_RenderPresent(screen);
 }
