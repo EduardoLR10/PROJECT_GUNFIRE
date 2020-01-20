@@ -6,17 +6,11 @@
 
 class Card{
 private:
-    SDL_Texture* center;
-    SDL_Texture* border;
-    SDL_Texture* suit;
-    SDL_Texture* type;
+    SDL_Texture* art;
 
 public:   
-    Card(SDL_Texture* center, SDL_Texture* border, SDL_Texture* suit, SDL_Texture* type);
-    SDL_Texture* getCenter();
-    SDL_Texture* getBorder();
-    SDL_Texture* getSuit();
-    SDL_Texture* getType();
+    Card(SDL_Texture* art);
+    SDL_Texture* getArt();
 
 };
 

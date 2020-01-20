@@ -2,6 +2,51 @@
 
 std::string cardsDirectory("../cardParts/");
 
+std::map<std::string, std::string> role_parts = {
+    { "RoleFuorilegge", "01_fuorilegge.png" },
+    { "RoleRinnegato", "01_rinnegato.png" },
+    { "RoleSceriffo", "01_sceriffo.png" },
+    { "RoleVice", "01_vice.png" }
+};
+
+std::map<std::string, std::string> effect_parts = {
+    { "EffectBang", "bang.png" },
+    { "EffectBarile", "barile.png" },
+    { "EffectBirra", "birra.png" },
+    { "EffectCatBalou", "catbalou.png" },
+    { "EffectDiligenza", "diligenza.png" },
+    { "EffectDinamite", "dinamite.png" },
+    { "EffectDuello", "duello.png" },
+    { "EffectEmporio", "emporio.png" },
+    { "EffectGatling", "gatling.png" },
+    { "EffectIndiani", "indiani.png" },
+    { "EffectMancato", "mancato.png" },
+    { "EffectMirino", "mirino.png" },
+    { "EffectPanico", "panico.png" },
+    { "EffectPrigione", "prigione.png" },
+    { "EffectSaloon", "saloon.png" },
+    { "EffectWellsFargo", "wellsfargo.png" }
+};
+
+std::map<std::string, std::string> character_cards = {
+    { "CharacterBartCassidy", "01_bartcassidy.png" },
+    { "CharacterBlackJack", "01_blackjack.png" },
+    { "CharacterCalamityJanet", "01_calamityjanet.png" },
+    { "CharacterElGringo", "01_elgringo.png" },
+    { "CharacterJesseJones", "01_jessejones.png" },
+    { "CharacterJourdonnais", "01_jourdonnais.png" },
+    { "CharacterKitCarlson", "01_kitcarlson.png" },
+    { "CharacterLuckyDuke", "01_luckyduke.png" },
+    { "CharacterPaulRegret", "01_paulregret.png" },
+    { "CharacterPedroRamirez", "01_pedroramirez.png" },
+    { "CharacterRoseDoolan", "01_rosedoolan.png" },
+    { "CharacterSidKetchum", "01_sidketchum.png" },
+    { "CharacterSlab", "01_slab.png" },
+    { "CharacterSuzyLafayette", "01_suzylafayette.png" },
+    { "CharacterVulturesam", "01_vulturesam.png" },
+    { "CharacterWillyTheKid", "01_willythekid.png" }
+};
+
 std::map<std::string, char*> equipment_parts = {
     { "EquipRemington", "remington.png" },
     { "EquipSchofield", "schofield.png" },
@@ -46,44 +91,67 @@ std::map<std::string, char*> border_parts = {
 
 CardBuilder::CardBuilder(){}
 
-Card CardBuilder::buildEquipCard(std::string centerName, std::string borderName, std::string suitName, std::string typeName){
+Card CardBuilder::buildEquipCard(CARD_TYPES card_type, std::vector<std::string> card_parts){
 
-    // Building Center Part
-    SDL_Surface* loadedSurface = IMG_Load((cardsDirectory + equipment_parts.at(centerName)).c_str());
+    SDL_Texture* center;
+    SDL_Texture* border;
+    SDL_Texture* suit;
+    SDL_Texture* type;
 
-    Uint32 colorkey = SDL_MapRGB(loadedSurface->format, 0, 255, 0);
-    SDL_SetColorKey(loadedSurface, SDL_TRUE, colorkey);
+    SDL_Texture* cardArt = SDL_CreateTexture(screen, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 250, 389);
+    SDL_SetRenderTarget(screen, cardArt);
 
-    SDL_Texture* centerTexture = SDL_CreateTextureFromSurface(screen, loadedSurface);
+    switch(card_type){
+        case EFFECT_CARD:
+            
+            center = IMG_LoadTexture(screen, (cardsDirectory + effect_parts.at(card_parts.at(CENTER))).c_str());
+            border = IMG_LoadTexture(screen, (cardsDirectory + border_parts.at("BorderBeige")).c_str());
+            suit = IMG_LoadTexture(screen, (cardsDirectory + suit_parts.at(card_parts.at(SUIT))).c_str());
+            type = IMG_LoadTexture(screen, (cardsDirectory + type_parts.at(card_parts.at(TYPE))).c_str());
+
+            SDL_RenderCopy(screen, center, NULL, NULL);
+            SDL_RenderCopy(screen, border, NULL, NULL);
+            SDL_RenderCopy(screen, suit, NULL, NULL);
+            SDL_RenderCopy(screen, type, NULL, NULL);
+
+            break;
+        case EQUIPMENT_CARD:
+
+            center = IMG_LoadTexture(screen, (cardsDirectory + equipment_parts.at(card_parts.at(CENTER))).c_str());
+            border = IMG_LoadTexture(screen, (cardsDirectory + border_parts.at("BorderBlue")).c_str());
+            suit = IMG_LoadTexture(screen, (cardsDirectory + suit_parts.at(card_parts.at(SUIT))).c_str());
+            type = IMG_LoadTexture(screen, (cardsDirectory + type_parts.at(card_parts.at(TYPE))).c_str());
+
+            SDL_RenderCopy(screen, center, NULL, NULL);
+            SDL_RenderCopy(screen, border, NULL, NULL);
+            SDL_RenderCopy(screen, suit, NULL, NULL);
+            SDL_RenderCopy(screen, type, NULL, NULL);
+
+            break;
+        case CHARACTER_CARD:
+            
+            center = IMG_LoadTexture(screen, (cardsDirectory + character_cards.at(card_parts.at(CENTER))).c_str());
+
+            SDL_RenderCopy(screen, center, NULL, NULL);
+
+            break;
+        case ROLE_CARD:
+
+            center = IMG_LoadTexture(screen, (cardsDirectory + role_parts.at(card_parts.at(CENTER))).c_str());
+            border = IMG_LoadTexture(screen, (cardsDirectory + border_parts.at("BorderMoss")).c_str());
+
+            SDL_RenderCopy(screen, center, NULL, NULL);
+            SDL_RenderCopy(screen, border, NULL, NULL);
+
+            break;
+        default:
+            break;
+    }
+
+    SDL_SetRenderTarget(screen, NULL);  
     
+    Card buildedCard(cardArt);
 
-    // Building Border Part
-    loadedSurface = IMG_Load((cardsDirectory + border_parts.at(borderName)).c_str());
-
-    colorkey = SDL_MapRGB(loadedSurface->format, 0,255, 0);
-    SDL_SetColorKey(loadedSurface, SDL_TRUE, colorkey);
-
-    SDL_Texture* borderTexture = SDL_CreateTextureFromSurface(screen, loadedSurface);
-
-    // Building Suit Part
-    loadedSurface = IMG_Load((cardsDirectory + suit_parts.at(suitName)).c_str());
-
-    colorkey = SDL_MapRGB(loadedSurface->format, 0, 255, 0);
-    SDL_SetColorKey(loadedSurface, SDL_TRUE, colorkey);
-
-    SDL_Texture* suitTexture = SDL_CreateTextureFromSurface(screen, loadedSurface);
-
-    // Building Type Part
-    loadedSurface = IMG_Load((cardsDirectory + type_parts.at(typeName)).c_str());
-
-    colorkey = SDL_MapRGB(loadedSurface->format, 0, 255, 0);
-    SDL_SetColorKey(loadedSurface, SDL_TRUE, colorkey);
-
-    SDL_Texture* typeTexture = SDL_CreateTextureFromSurface(screen, loadedSurface);
-
-    Card buildedCard(centerTexture, borderTexture, suitTexture, typeTexture); 
-
-    SDL_FreeSurface(loadedSurface);
     return buildedCard;
     
 }

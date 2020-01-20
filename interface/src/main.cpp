@@ -17,10 +17,22 @@ int main(){
     screen = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     CardBuilder cardBuilder;
-    Card testCard = cardBuilder.buildEquipCard("EquipBarile", "BorderMoss", "SuitSpades", "TypeK");
+    Card effectCard = cardBuilder.buildEquipCard(EFFECT_CARD, {"EffectBang", "SuitSpades", "TypeK"});
+    Card roleCard = cardBuilder.buildEquipCard(ROLE_CARD, {"RoleSceriffo"});
+    Card characterCard = cardBuilder.buildEquipCard(CHARACTER_CARD, {"CharacterElGringo"});
+    Card equipmentCard = cardBuilder.buildEquipCard(EQUIPMENT_CARD, {"EquipMustang", "SuitSpades", "TypeK"});
 
-    showCard(testCard);
+    showCard(effectCard);
+    SDL_Delay(2000);
 
-    SDL_Delay(5000); // Wait 5 seconds
+    showCard(roleCard);
+    SDL_Delay(2000);
+
+    showCard(characterCard);
+    SDL_Delay(2000);
+
+    showCard(equipmentCard);
+    SDL_Delay(2000);
+    
     SDL_Quit();
 }
