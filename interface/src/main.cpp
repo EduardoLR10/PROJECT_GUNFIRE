@@ -6,15 +6,7 @@ extern SDL_Renderer *screen;
 
 int main(){
 
-    SDL_Init(SDL_INIT_VIDEO);
-
-    SDL_Window *window = SDL_CreateWindow("Project Gunfire",
-                          SDL_WINDOWPOS_UNDEFINED,
-                          SDL_WINDOWPOS_UNDEFINED,
-                          250, 389,
-                          0);
-
-    screen = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    peprareWindow(1280, 720);
 
     CardBuilder cardBuilder;
     Card effectCard = cardBuilder.buildEquipCard(EFFECT_CARD, {"EffectBang", "SuitSpades", "TypeK"});
@@ -22,17 +14,17 @@ int main(){
     Card characterCard = cardBuilder.buildEquipCard(CHARACTER_CARD, {"CharacterElGringo"});
     Card equipmentCard = cardBuilder.buildEquipCard(EQUIPMENT_CARD, {"EquipMustang", "SuitSpades", "TypeK"});
 
-    showCard(effectCard);
-    SDL_Delay(2000);
+    drawCard(effectCard, 0, 0, 250, 389);
 
-    showCard(roleCard);
-    SDL_Delay(2000);
+    drawCard(roleCard, 1100, 100, 150, calculateCardHeight(150));
 
-    showCard(characterCard);
-    SDL_Delay(2000);
+    drawCard(characterCard, 200, 550, 150, 150);
 
-    showCard(equipmentCard);
-    SDL_Delay(2000);
+    drawCard(equipmentCard, 600, 250, 300, calculateCardHeight(300));
     
+    displayScreen(5000);
+
     SDL_Quit();
+
+    return 0;
 }
