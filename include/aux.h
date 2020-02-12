@@ -5,8 +5,11 @@
 #include <string>
 #include <stdlib.h>     /* srand, rand */
 #include <vector>
-#include <stack>          // std::stack
+//#include <stack>          // std::stack
 #include <algorithm>    // std::random_shuffle
+#include <random>       // std::default_random_engine
+#include <chrono>       // std::chrono::system_clock
+
 #include <memory> 
 
 #define	life3	3
@@ -19,7 +22,7 @@
 
 // NÃO MUDAR A ORDEM
 
-enum deckType{role, character, flip};
+enum deckType{role, character, flip, empty};
 
 enum enumNipe{clubs, hearts, spades, diamonds};
 
