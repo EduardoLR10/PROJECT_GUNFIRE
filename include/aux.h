@@ -1,17 +1,23 @@
+/*! \file aux.h
+    \brief Composes all variables, definitions, enum, etc. auxiliary to the Model.
+*/
+
+
 #ifndef AUX_H
 #define AUX_H
 
 #include <iostream>
 #include <string>
-#include <stdlib.h>     /* srand, rand */
 #include <vector>
-//#include <stack>          // std::stack
-#include <algorithm>    // std::random_shuffle
+//#include <stack>      // std::stack
+#include <algorithm>    // std::shuffle
 #include <random>       // std::default_random_engine
 #include <chrono>       // std::chrono::system_clock
+#include <memory> 		// shared_ptr, make_shared
 
-#include <memory> 
-
+/*! \def life3, life4, numberOfCards, J, Q, K, A
+    \brief Definitions of important constant integers.
+*/
 #define	life3	3
 #define	life4	4
 #define numberOfCards 80
@@ -20,11 +26,13 @@
 #define K 13
 #define A 14
 
-// NÃO MUDAR A ORDEM
+// ***** NÃO MUDAR A ORDEM *****
 
-enum deckType{role, character, flip, empty};
+enum enumPh{draw2, play, discard};
 
-enum enumNipe{clubs, hearts, spades, diamonds};
+enum deckType{role, character, flip, empty}; /*!< \enum deckType. Type of cards for the stack. */
+
+enum enumNaipe{clubs, hearts, spades, diamonds}; /*!< \enum enumNaipe. */
 
 enum enumCards {
 	//Weapons cards
@@ -40,11 +48,15 @@ enum enumCards {
 	WillyKid, JesseJones, Joudonnais, KitCarlson, LuckyDuke, PaulRegret, PedroRamirez, RoseDoolan, 
 	BartCassidy, SidKetchum, BlackJack, SlabKiller, CalamityJanet, SuzyLafayette, 
 	ElGringo, VultureSam, End
-};	
+};	/*!< \enum enumCard. Id for all cards.*/
 
-
+/*! \struct _Info
+    \brief Contains auxiliary arrays.
+*/
 struct _Info{
-	int auxRole[8] = {2, 2, 3, 3, 0, 1, 1, 2};
+	/*! \var auxRole
+    \brief Auxiliary array with the number of Outlaws (the first 4) and Deputy (the last 4). */
+	int auxRole[8] = {2, 2, 3, 3, 0, 1, 1, 2}; 
 
 	std::string Names[43] = {
 		//Weapons cards
@@ -61,7 +73,7 @@ struct _Info{
 		"Paul Regret", "Pedro Ramirez", "Rose Doolan", "Bart Cassidy", "Sid Ketchum", 
 		"Black Jack", "Slab the Killer", "Calamity Janet", "Suzy Lafayette", "El Gringo", 
 		"Vulture Sam", ""
-	};			
+	};	/*!< \var Names. String array containing card names.*/		
 
 	std::string Descriptions[43] = {
 		//Weapons cards
@@ -78,8 +90,11 @@ struct _Info{
 		"Paul Regret", "Pedro Ramirez", "Rose Doolan", "Bart Cassidy", "Sid Ketchum", 
 		"Black Jack", "Slab the Killer", "Calamity Janet", "Suzy Lafayette", "El Gringo", 
 		"Vulture Sam", ""
-	};
+	}; /*!< \var Desciptions. String array containing card descriptions.*/		
 
+	/*! \var auxPlayingCards. Auxiliary array of integers that will serve as indexes for
+		other arrays and enum to extract information from the 80 playing cards.
+	*/	
 	int auxPlayingCards[80][3] = {
 		0, 	0,	J,
 		0, 	0,	Q,
@@ -161,10 +176,10 @@ struct _Info{
 		20, 2, 	9,
 		20, 2, 	9,
 		21, 1, 	3
-	};
+	}; 
 };
 
-extern _Info Info;
+extern _Info Info; /*!< A global struct definition.*/	
 
 
 

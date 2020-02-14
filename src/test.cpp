@@ -2,9 +2,8 @@
 
 
 int main(){
-	Deck deck(6, flip);
-	while(!deck.Stack.empty()){
-		std::cout << deck.pop()->cardName << std::endl;
-	}
+	std::string s[4] = {"Daniel", "Lucas", "Leila", "Joaquik"};
+	Room room(4, s);
+	room.dealInitialCards();
 	return 0;
 }
